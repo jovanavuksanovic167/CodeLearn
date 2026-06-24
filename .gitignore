@@ -1,0 +1,38 @@
+# .NET
+bin/
+obj/
+*.user
+*.suo
+*.rsuser
+.vs/
+.vscode/
+
+# Rider
+.idea/
+
+# Logs
+*.log
+
+# Environment / secrets
+.env
+appsettings.Development.json
+secrets.json
+
+# React / Node
+node_modules/
+dist/
+build/
+.vite/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Database / local files
+*.db
+*.sqlite
+*.sqlite3
+
+# NuGet
+*.nupkg
+packages/

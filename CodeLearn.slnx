@@ -1,0 +1,6 @@
+<Solution>
+  <Project Path="CodeLearn.Api/CodeLearn.Api.csproj" />
+  <Project Path="CodeLearn.Application/CodeLearn.Application.csproj" />
+  <Project Path="CodeLearn.Domain/CodeLearn.Domain.csproj" />
+  <Project Path="CodeLearn.Infrastructure/CodeLearn.Infrastructure.csproj" />
+</Solution>

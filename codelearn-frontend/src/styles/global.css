@@ -1,0 +1,645 @@
+:root {
+    --navy-950: #020617;
+    --navy-900: #0f172a;
+    --navy-800: #1e293b;
+    --navy-700: #1d4ed8;
+    --blue-600: #2563eb;
+    --blue-500: #3b82f6;
+    --blue-100: #dbeafe;
+    --white: #ffffff;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-500: #64748b;
+    --gray-700: #334155;
+    --red-500: #ef4444;
+    --red-700: #b91c1c;
+    --shadow: 0 18px 45px rgba(15, 23, 42, 0.14);
+    --radius: 18px;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: Inter, Arial, sans-serif;
+    background:
+        radial-gradient(circle at top left, rgba(37, 99, 235, 0.16), transparent 35%),
+        radial-gradient(circle at top right, rgba(59, 130, 246, 0.12), transparent 30%),
+        linear-gradient(135deg, #f8fafc 0%, #eef4ff 50%, #ffffff 100%);
+    color: var(--navy-900);
+    min-height: 100vh;
+}
+
+body::before {
+    content: "<C# />   { }   public static void Main()   =>   async Task   0101";
+    position: fixed;
+    top: 110px;
+    left: -40px;
+    right: -40px;
+    z-index: -1;
+    color: rgba(15, 23, 42, 0.045);
+    font-family: "Courier New", monospace;
+    font-size: 52px;
+    font-weight: 700;
+    letter-spacing: 8px;
+    white-space: nowrap;
+    transform: rotate(-8deg);
+    pointer-events: none;
+}
+
+body::after {
+    content: "class Course { get; set; }   while(true)   if(success)   return Ok();";
+    position: fixed;
+    bottom: 80px;
+    left: -70px;
+    right: -70px;
+    z-index: -1;
+    color: rgba(37, 99, 235, 0.05);
+    font-family: "Courier New", monospace;
+    font-size: 42px;
+    font-weight: 700;
+    letter-spacing: 7px;
+    white-space: nowrap;
+    transform: rotate(7deg);
+    pointer-events: none;
+}
+
+a {
+    text-decoration: none;
+}
+
+.navbar {
+    background:
+        linear-gradient(135deg, rgba(2, 6, 23, 0.98), rgba(15, 23, 42, 0.96)),
+        linear-gradient(90deg, transparent, rgba(59, 130, 246, 0.25), transparent);
+    color: var(--white);
+    padding: 18px 44px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 12px 30px rgba(2, 6, 23, 0.28);
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    border-bottom: 1px solid rgba(147, 197, 253, 0.2);
+}
+
+.navbar-logo a {
+    color: var(--white);
+    font-size: 26px;
+    font-weight: 900;
+    letter-spacing: -0.8px;
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-logo a::before {
+    content: "</>";
+    background: linear-gradient(135deg, var(--blue-500), #93c5fd);
+    color: white;
+    font-size: 15px;
+    padding: 7px 9px;
+    border-radius: 10px;
+    font-family: "Courier New", monospace;
+    box-shadow: 0 0 24px rgba(59, 130, 246, 0.55);
+}
+
+.navbar-links {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.navbar-links a {
+    color: #dbeafe;
+    font-size: 15px;
+    font-weight: 600;
+    padding: 9px 13px;
+    border-radius: 999px;
+    transition: 0.2s ease;
+}
+
+.navbar-links a:hover {
+    color: white;
+    background: rgba(59, 130, 246, 0.2);
+}
+
+.navbar-user {
+    color: #bfdbfe;
+    font-weight: 800;
+    background: rgba(59, 130, 246, 0.14);
+    border: 1px solid rgba(147, 197, 253, 0.24);
+    padding: 8px 12px;
+    border-radius: 999px;
+}
+
+.logout-button {
+    background: rgba(239, 68, 68, 0.14);
+    color: white;
+    border: 1px solid rgba(248, 113, 113, 0.45);
+    padding: 9px 14px;
+    border-radius: 999px;
+    cursor: pointer;
+    font-weight: 700;
+    transition: 0.2s ease;
+    box-shadow: none;
+    margin-top: 0;
+}
+
+.logout-button:hover {
+    background: var(--red-500);
+    transform: translateY(-1px);
+}
+
+.container {
+    width: 90%;
+    max-width: 1120px;
+    margin: 42px auto;
+}
+
+.hero {
+    position: relative;
+    overflow: hidden;
+    background:
+        linear-gradient(135deg, rgba(255, 255, 255, 0.95), rgba(219, 234, 254, 0.72)),
+        linear-gradient(135deg, transparent, rgba(37, 99, 235, 0.08));
+    padding: 64px 54px;
+    border-radius: 28px;
+    text-align: center;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(37, 99, 235, 0.13);
+}
+
+.hero::before {
+    content: "{ }";
+    position: absolute;
+    top: 18px;
+    left: 30px;
+    color: rgba(37, 99, 235, 0.11);
+    font-family: "Courier New", monospace;
+    font-size: 90px;
+    font-weight: 900;
+}
+
+.hero::after {
+    content: "console.log('learn C#');";
+    position: absolute;
+    right: -20px;
+    bottom: 22px;
+    color: rgba(15, 23, 42, 0.07);
+    font-family: "Courier New", monospace;
+    font-size: 34px;
+    font-weight: 800;
+    transform: rotate(-7deg);
+}
+
+.hero h1 {
+    position: relative;
+    margin: 0 0 18px;
+    font-size: 50px;
+    line-height: 1.05;
+    color: var(--navy-950);
+    letter-spacing: -1.7px;
+}
+
+.hero h1::after {
+    content: "_";
+    color: var(--blue-600);
+    animation: blink 1s infinite;
+}
+
+.hero p {
+    position: relative;
+    font-size: 19px;
+    line-height: 1.7;
+    color: var(--gray-700);
+    max-width: 760px;
+    margin: 0 auto 34px;
+}
+
+.hero-actions {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    gap: 16px;
+    flex-wrap: wrap;
+}
+
+.primary-link,
+.secondary-link {
+    padding: 13px 22px;
+    border-radius: 999px;
+    font-weight: 800;
+    transition: 0.2s ease;
+    display: inline-block;
+}
+
+.primary-link {
+    background: linear-gradient(135deg, var(--blue-600), var(--navy-700));
+    color: white;
+    box-shadow: 0 14px 28px rgba(37, 99, 235, 0.28);
+}
+
+.primary-link:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 18px 36px rgba(37, 99, 235, 0.34);
+}
+
+.secondary-link {
+    background: white;
+    color: var(--navy-900);
+    border: 1px solid var(--gray-200);
+}
+
+.secondary-link:hover {
+    background: var(--blue-100);
+    border-color: #bfdbfe;
+}
+
+.small-link {
+    padding: 10px 14px;
+    font-size: 14px;
+}
+
+button {
+    background: linear-gradient(135deg, var(--blue-600), var(--navy-700));
+    color: white;
+    border: none;
+    padding: 13px 18px;
+    border-radius: 12px;
+    cursor: pointer;
+    font-size: 15px;
+    font-weight: 800;
+    margin-top: 10px;
+    transition: 0.2s ease;
+    box-shadow: 0 12px 24px rgba(37, 99, 235, 0.22);
+}
+
+button:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 16px 30px rgba(37, 99, 235, 0.3);
+}
+
+.form-card {
+    position: relative;
+    background: rgba(255, 255, 255, 0.94);
+    padding: 34px;
+    border-radius: var(--radius);
+    max-width: 520px;
+    margin: 0 auto;
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(37, 99, 235, 0.13);
+    overflow: hidden;
+}
+
+.form-card::before {
+    content: "</>";
+    position: absolute;
+    right: 26px;
+    top: 22px;
+    color: rgba(37, 99, 235, 0.12);
+    font-family: "Courier New", monospace;
+    font-size: 52px;
+    font-weight: 900;
+}
+
+.form-card h2,
+.form-card h3 {
+    margin-top: 0;
+    color: var(--navy-950);
+    font-size: 30px;
+    letter-spacing: -0.8px;
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+label {
+    font-weight: 800;
+    color: var(--navy-800);
+    font-size: 14px;
+}
+
+input,
+textarea,
+select {
+    padding: 13px 14px;
+    border: 1px solid #cbd5e1;
+    border-radius: 12px;
+    font-size: 15px;
+    outline: none;
+    background: white;
+    color: var(--navy-900);
+    transition: 0.2s ease;
+}
+
+input:focus,
+textarea:focus,
+select:focus {
+    border-color: var(--blue-500);
+    box-shadow: 0 0 0 4px rgba(59, 130, 246, 0.16);
+}
+
+textarea {
+    min-height: 110px;
+    resize: vertical;
+}
+
+.error-message {
+    background: #fee2e2;
+    color: var(--red-700);
+    padding: 13px 14px;
+    border-radius: 12px;
+    border: 1px solid #fecaca;
+    font-weight: 700;
+}
+
+.success-message {
+    background: #dcfce7;
+    color: #166534;
+    padding: 13px 14px;
+    border-radius: 12px;
+    border: 1px solid #bbf7d0;
+    font-weight: 700;
+}
+
+.empty-message {
+    background: white;
+    border: 1px dashed #93c5fd;
+    color: var(--gray-700);
+    padding: 22px;
+    border-radius: 14px;
+    text-align: center;
+}
+
+section > h2 {
+    font-size: 34px;
+    letter-spacing: -1px;
+    color: var(--navy-950);
+    margin-bottom: 22px;
+}
+
+section > h2::before {
+    content: "# ";
+    color: var(--blue-600);
+    font-family: "Courier New", monospace;
+}
+
+section h3 {
+    color: var(--navy-950);
+}
+
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(270px, 1fr));
+    gap: 22px;
+}
+
+.course-card {
+    position: relative;
+    overflow: hidden;
+    background: linear-gradient(180deg, white, #f8fbff);
+    padding: 24px;
+    border-radius: var(--radius);
+    box-shadow: var(--shadow);
+    border: 1px solid rgba(37, 99, 235, 0.12);
+    transition: 0.22s ease;
+}
+
+.course-card::before {
+    content: "C#";
+    position: absolute;
+    top: 18px;
+    right: 18px;
+    background: var(--blue-100);
+    color: var(--blue-600);
+    font-weight: 900;
+    font-family: "Courier New", monospace;
+    padding: 7px 10px;
+    border-radius: 10px;
+}
+
+.course-card::after {
+    content: "public class Course { }";
+    position: absolute;
+    left: 18px;
+    bottom: 12px;
+    color: rgba(15, 23, 42, 0.07);
+    font-family: "Courier New", monospace;
+    font-size: 14px;
+    font-weight: 900;
+}
+
+.course-card:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 24px 55px rgba(15, 23, 42, 0.18);
+    border-color: rgba(37, 99, 235, 0.28);
+}
+
+.course-card h3 {
+    margin-top: 0;
+    margin-right: 50px;
+    font-size: 22px;
+    color: var(--navy-950);
+}
+
+.course-card p {
+    color: var(--gray-700);
+    line-height: 1.55;
+}
+
+.course-card strong {
+    color: var(--navy-900);
+}
+
+.admin-layout {
+    display: grid;
+    grid-template-columns: 420px 1fr;
+    gap: 28px;
+    align-items: start;
+}
+
+.checkbox-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.checkbox-label input {
+    width: auto;
+}
+
+.secondary-button {
+    background: white;
+    color: var(--navy-900);
+    border: 1px solid var(--gray-200);
+    box-shadow: none;
+}
+
+.secondary-button:hover {
+    background: var(--blue-100);
+}
+
+.danger-button {
+    background: linear-gradient(135deg, #ef4444, #b91c1c);
+    box-shadow: 0 12px 24px rgba(239, 68, 68, 0.2);
+}
+
+.danger-button:hover {
+    background: linear-gradient(135deg, #dc2626, #991b1b);
+}
+
+.admin-list,
+.quiz-list {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+
+.admin-list-item,
+.lesson-card,
+.question-card,
+.result-card,
+.details-header {
+    background: white;
+    border: 1px solid rgba(37, 99, 235, 0.12);
+    border-radius: var(--radius);
+    padding: 22px;
+    box-shadow: var(--shadow);
+}
+
+.details-header {
+    margin-bottom: 28px;
+}
+
+.admin-list-item {
+    display: flex;
+    justify-content: space-between;
+    gap: 20px;
+}
+
+.admin-list-item h4 {
+    margin: 0 0 8px;
+    font-size: 21px;
+    color: var(--navy-950);
+}
+
+.admin-list-item p,
+.lesson-card p,
+.question-card p,
+.result-card p,
+.details-header p {
+    color: var(--gray-700);
+    line-height: 1.5;
+}
+
+.admin-actions {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    min-width: 120px;
+}
+
+.lesson-actions {
+    display: flex;
+    gap: 12px;
+    flex-wrap: wrap;
+    margin-top: 16px;
+}
+
+.code-block {
+    background: #020617;
+    color: #bfdbfe;
+    padding: 18px;
+    border-radius: 14px;
+    overflow-x: auto;
+    font-family: "Courier New", monospace;
+    border: 1px solid rgba(147, 197, 253, 0.25);
+}
+
+.answer-options {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.answer-option {
+    background: #f8fbff;
+    border: 1px solid #dbeafe;
+    padding: 12px 14px;
+    border-radius: 12px;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    cursor: pointer;
+}
+
+.answer-option input {
+    width: auto;
+}
+
+.result-card {
+    margin-top: 22px;
+    border-color: rgba(22, 163, 74, 0.3);
+}
+
+@keyframes blink {
+    0%, 45% {
+        opacity: 1;
+    }
+
+    46%, 100% {
+        opacity: 0;
+    }
+}
+
+@media (max-width: 900px) {
+    .admin-layout {
+        grid-template-columns: 1fr;
+    }
+
+    .admin-list-item {
+        flex-direction: column;
+    }
+
+    .admin-actions {
+        flex-direction: row;
+    }
+}
+
+@media (max-width: 780px) {
+    .navbar {
+        padding: 16px 20px;
+        flex-direction: column;
+        gap: 14px;
+    }
+
+    .navbar-links {
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .hero {
+        padding: 46px 24px;
+    }
+
+    .hero h1 {
+        font-size: 36px;
+    }
+
+    .hero p {
+        font-size: 16px;
+    }
+
+    .form-card {
+        padding: 26px;
+    }
+}
