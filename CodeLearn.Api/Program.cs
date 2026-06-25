@@ -15,10 +15,18 @@ using CodeLearn.Api.Seed;
 using CodeLearn.Api.Validators.Courses;
 using FluentValidation;
 using FluentValidation.AspNetCore;
+using CodeLearn.Application.Features.Courses.Queries.GetAllCourses;
 
 var builder = WebApplication.CreateBuilder(args);
 
 builder.Services.AddControllers();
+
+
+builder.Services.AddMediatR(cfg =>
+{
+    cfg.RegisterServicesFromAssembly(typeof(GetAllCoursesQuery).Assembly);
+});
+
 builder.Services.AddCors(options =>
 {
     options.AddPolicy("ReactPolicy", policy =>

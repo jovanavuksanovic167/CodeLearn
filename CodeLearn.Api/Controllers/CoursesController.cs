@@ -1,8 +1,12 @@
-using CodeLearn.Api.DTOs.Courses;
-using CodeLearn.Application.Common.Interfaces;
-using CodeLearn.Domain.Entities;
-using Microsoft.AspNetCore.Mvc;
+using CodeLearn.Application.Features.Courses.Commands.CreateCourse;
+using CodeLearn.Application.Features.Courses.Commands.DeleteCourse;
+using CodeLearn.Application.Features.Courses.Commands.UpdateCourse;
+using CodeLearn.Application.Features.Courses.Queries.GetAllCourses;
+using CodeLearn.Application.Features.Courses.Queries.GetCourseById;
+using CodeLearn.Application.Features.Courses.Queries.SearchCourses;
+using MediatR;
 using Microsoft.AspNetCore.Authorization;
+using Microsoft.AspNetCore.Mvc;
 
 namespace CodeLearn.Api.Controllers;
 
@@ -10,116 +14,96 @@ namespace CodeLearn.Api.Controllers;
 [Route("api/[controller]")]
 public class CoursesController : ControllerBase
 {
-    private readonly IUnitOfWork _unitOfWork;
+    private readonly IMediator _mediator;
 
-    public CoursesController(IUnitOfWork unitOfWork)
+    public CoursesController(IMediator mediator)
     {
-        _unitOfWork = unitOfWork;
+        _mediator = mediator;
     }
 
     [HttpGet]
-    public async Task<ActionResult<List<CourseDto>>> GetAll()
+    public async Task<IActionResult> GetAll()
     {
-        var courses = await _unitOfWork.Courses.GetAllAsync();
-
-        var result = courses.Select(course => new CourseDto
-        {
-            Id = course.Id,
-            Title = course.Title,
-            Description = course.Description,
-            Level = course.Level,
-            CreatedAt = course.CreatedAt,
-            IsActive = course.IsActive
-        }).ToList();
+        var result = await _mediator.Send(new GetAllCoursesQuery());
 
         return Ok(result);
     }
 
     [HttpGet("{id}")]
-    public async Task<ActionResult<CourseDto>> GetById(int id)
+    public async Task<IActionResult> GetById(int id)
     {
-        var course = await _unitOfWork.Courses.GetByIdAsync(id);
+        var result = await _mediator.Send(new GetCourseByIdQuery
+        {
+            Id = id
+        });
 
-        if (course == null)
+        if (result == null)
         {
             return NotFound("Course not found.");
         }
-
-        var result = new CourseDto
-        {
-            Id = course.Id,
-            Title = course.Title,
-            Description = course.Description,
-            Level = course.Level,
-            CreatedAt = course.CreatedAt,
-            IsActive = course.IsActive
-        };
 
         return Ok(result);
     }
-    [Authorize(Roles = "Admin")]
-    [HttpPost]
-    public async Task<ActionResult<CourseDto>> Create(CreateCourseDto dto)
+
+    [HttpGet("search")]
+    public async Task<IActionResult> Search([FromQuery] string title)
     {
-        var course = new Course
+        if (string.IsNullOrWhiteSpace(title))
         {
-            Title = dto.Title,
-            Description = dto.Description,
-            Level = dto.Level,
-            CreatedAt = DateTime.UtcNow,
-            IsActive = true
-        };
-
-        await _unitOfWork.Courses.AddAsync(course);
-        await _unitOfWork.SaveChangesAsync();
-
-        var result = new CourseDto
-        {
-            Id = course.Id,
-            Title = course.Title,
-            Description = course.Description,
-            Level = course.Level,
-            CreatedAt = course.CreatedAt,
-            IsActive = course.IsActive
-        };
-
-        return CreatedAtAction(nameof(GetById), new { id = course.Id }, result);
-    }
-    [Authorize(Roles = "Admin")]
-    [HttpPut("{id}")]
-    public async Task<IActionResult> Update(int id, UpdateCourseDto dto)
-    {
-        var course = await _unitOfWork.Courses.GetByIdAsync(id);
-
-        if (course == null)
-        {
-            return NotFound("Course not found.");
+            return BadRequest("Unesite naziv kursa za pretragu.");
         }
 
-        course.Title = dto.Title;
-        course.Description = dto.Description;
-        course.Level = dto.Level;
-        course.IsActive = dto.IsActive;
+        var result = await _mediator.Send(new SearchCoursesQuery
+        {
+            Title = title
+        });
 
-        _unitOfWork.Courses.Update(course);
-        await _unitOfWork.SaveChangesAsync();
-
-        return NoContent();
+        return Ok(result);
     }
+
+    [HttpPost]
     [Authorize(Roles = "Admin")]
+    public async Task<IActionResult> Create(CreateCourseCommand command)
+    {
+        var id = await _mediator.Send(command);
+
+        return Ok(new
+        {
+            Id = id,
+            Message = "Course created successfully."
+        });
+    }
+
+    [HttpPut("{id}")]
+[Authorize(Roles = "Admin")]
+public async Task<IActionResult> Update(int id, UpdateCourseCommand command)
+{
+    command.Id = id;
+
+    var result = await _mediator.Send(command);
+
+    if (!result)
+    {
+        return NotFound("Course not found.");
+    }
+
+    return Ok("Course updated successfully.");
+}
+
     [HttpDelete("{id}")]
+    [Authorize(Roles = "Admin")]
     public async Task<IActionResult> Delete(int id)
     {
-        var course = await _unitOfWork.Courses.GetByIdAsync(id);
+        var result = await _mediator.Send(new DeleteCourseCommand
+        {
+            Id = id
+        });
 
-        if (course == null)
+        if (!result)
         {
             return NotFound("Course not found.");
         }
 
-        _unitOfWork.Courses.Delete(course);
-        await _unitOfWork.SaveChangesAsync();
-
-        return NoContent();
+        return Ok("Course deleted successfully.");
     }
 }
